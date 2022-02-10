@@ -56,6 +56,7 @@ class Filters extends BaseConfig
                     'ruangan', 'ruangan/*',
                     'prodi', 'prodi/*',
                     'ta', 'ta/*',
+                    'makul', 'makul/*',
                     '/'
                 ]
             ],

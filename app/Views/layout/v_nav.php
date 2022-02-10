@@ -45,7 +45,9 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                     <li><a href="<?= base_url('fakultas') ?>">Fakultas</a></li>
                     <li><a href="<?= base_url('prodi') ?>">Program Study</a></li>
                     <li><a href="<?= base_url('ta') ?>">Tahun Akademik</a></li>
-                    <li><a href="#">Mahasiswa</a></li>
+                    <li><a href="<?= base_url('makul') ?>">Mata Kuliah</a></li>
+                    <li><a href="<?= base_url('mahasiswa') ?>">Mahasiswa</a></li>
+                    <li><a href="<?= base_url('dosen') ?>">Dosen</a></li>
                 </ul>
             </li>
             <li><a href="#">About</a></li>
@@ -120,6 +122,11 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                 <h1>
                     <?= $title ?>
                 </h1>
+                <?php if ($title == 'Detail Mata Kuliah') { ?>
+                    <div class="text-danger">
+                        <small><?= $prodi['prodi'] ?></small>
+                    </div>
+                <?php } ?>
                 <ol class="breadcrumb">
                     <li><a href="#"> Siakad</a></li>
                     <li><a href="#"><?= $title ?></a></li>
