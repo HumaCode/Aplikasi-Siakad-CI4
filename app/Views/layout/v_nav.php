@@ -40,9 +40,11 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Master <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
+                    <li><a href="<?= base_url('gedung') ?>">Gedung</a></li>
+                    <li><a href="<?= base_url('ruangan') ?>">Ruang Kelas</a></li>
                     <li><a href="<?= base_url('fakultas') ?>">Fakultas</a></li>
-                    <li><a href="#">Program Study</a></li>
-                    <li><a href="#">Dosen</a></li>
+                    <li><a href="<?= base_url('prodi') ?>">Program Study</a></li>
+                    <li><a href="<?= base_url('ta') ?>">Tahun Akademik</a></li>
                     <li><a href="#">Mahasiswa</a></li>
                 </ul>
             </li>

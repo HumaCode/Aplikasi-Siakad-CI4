@@ -23,20 +23,20 @@
                     <thead>
                         <tr>
                             <th width="50">No</th>
-                            <th>Fakultas</th>
+                            <th>Gedung</th>
                             <th width="200" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php $i = 1;
-                        foreach ($fakultas as $f) { ?>
+                        foreach ($gedung as $g) { ?>
                             <tr>
                                 <td><?= $i ?></td>
-                                <td><?= $f['fakultas'] ?></td>
+                                <td><?= $g['gedung'] ?></td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#edit<?= $f['id_fakultas'] ?>"><i class="fa fa-pencil"></i></button>
-                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapus<?= $f['id_fakultas'] ?>"><i class="fa fa-trash"></i></button>
+                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#edit<?= $g['id_gedung'] ?>"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapus<?= $g['id_gedung'] ?>"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
                         <?php $i++;
@@ -57,14 +57,14 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Tambah Fakultas</h4>
+                <h4 class="modal-title">Tambah Gedung</h4>
             </div>
 
-            <?= form_open('fakultas/add') ?>
+            <?= form_open('gedung/add') ?>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="fakultas">Fakultas</label>
-                    <input type="text" name="fakultas" id="fakultas" class="form-control" placeholder="Fakultas" required>
+                    <label for="gedung">Gedung</label>
+                    <input type="text" name="gedung" id="gedung" class="form-control" placeholder="Gedung" required>
                 </div>
             </div>
             <div class="modal-footer">
@@ -77,21 +77,21 @@
 </div>
 
 <!-- modal edit -->
-<?php foreach ($fakultas as $f) {  ?>
-    <div class="modal fade" id="edit<?= $f['id_fakultas'] ?>">
+<?php foreach ($gedung as $g) {  ?>
+    <div class="modal fade" id="edit<?= $g['id_gedung'] ?>">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Fakultas <?= $f['fakultas'] ?></h4>
+                    <h4 class="modal-title">Edit Gedung <?= $g['gedung'] ?></h4>
                 </div>
 
-                <?= form_open('fakultas/edit/' . $f['id_fakultas']) ?>
+                <?= form_open('gedung/edit/' . $g['id_gedung']) ?>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="fakultas">Fakultas</label>
-                        <input type="text" name="fakultas" id="fakultas" class="form-control" value="<?= $f['fakultas'] ?>" required>
+                        <label for="gedung">Gedung</label>
+                        <input type="text" name="gedung" id="gedung" class="form-control" value="<?= $g['gedung'] ?>" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -105,14 +105,14 @@
 <?php } ?>
 
 <!-- modal hapus -->
-<?php foreach ($fakultas as $f) {  ?>
-    <div class="modal fade" id="hapus<?= $f['id_fakultas'] ?>">
+<?php foreach ($gedung as $g) {  ?>
+    <div class="modal fade" id="hapus<?= $g['id_gedung'] ?>">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Hapus Fakultas <strong><?= $f['fakultas'] ?></strong></h4>
+                    <h4 class="modal-title">Hapus Gedung <strong><?= $g['gedung'] ?></strong></h4>
                 </div>
 
                 <div class="modal-body">
@@ -120,7 +120,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                    <a href="<?= base_url('fakultas/hapus/' . $f['id_fakultas']) ?>" class="btn btn-primary">Ya, Hapus</a>
+                    <a href="<?= base_url('gedung/hapus/' . $g['id_gedung']) ?>" class="btn btn-primary">Ya, Hapus</a>
                 </div>
             </div>
         </div>

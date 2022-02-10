@@ -34,4 +34,27 @@ class Fakultas extends BaseController
         session()->setFlashdata('pesan', 'Data Fakultas berhasil di tambahkan...!!!');
         return redirect()->to('fakultas');
     }
+
+    public function edit($id_fakultas)
+    {
+
+        $data = [
+            'fakultas' => htmlspecialchars($this->request->getVar('fakultas'))
+        ];
+
+        // masukan ke dalam model
+        $this->ModelFakultas->edit($id_fakultas, $data);
+
+        session()->setFlashdata('pesan', 'Data Fakultas berhasil di edit...!!!');
+        return redirect()->to('fakultas');
+    }
+
+    public function hapus($id_fakultas)
+    {
+        // masukan ke dalam model
+        $this->ModelFakultas->hapus($id_fakultas);
+
+        session()->setFlashdata('pesan', 'Data Fakultas berhasil di hapus...!!!');
+        return redirect()->to('fakultas');
+    }
 }

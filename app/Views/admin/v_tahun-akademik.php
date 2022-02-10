@@ -2,7 +2,7 @@
     <div class="col-sm-12">
         <div class="box box-success box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">Data <?= $title ?></h3>
+                <h3 class="box-title"><?= $title ?></h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i> &nbsp;Tambah</button>
@@ -23,20 +23,22 @@
                     <thead>
                         <tr>
                             <th width="50">No</th>
-                            <th>Fakultas</th>
+                            <th>Tahun</th>
+                            <th>Semester</th>
                             <th width="200" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php $i = 1;
-                        foreach ($fakultas as $f) { ?>
+                        foreach ($ta as $g) { ?>
                             <tr>
                                 <td><?= $i ?></td>
-                                <td><?= $f['fakultas'] ?></td>
+                                <td><?= $g['ta'] ?></td>
+                                <td><?= $g['semester'] ?></td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#edit<?= $f['id_fakultas'] ?>"><i class="fa fa-pencil"></i></button>
-                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapus<?= $f['id_fakultas'] ?>"><i class="fa fa-trash"></i></button>
+                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#edit<?= $g['id_ta'] ?>"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapus<?= $g['id_ta'] ?>"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
                         <?php $i++;
@@ -57,14 +59,18 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Tambah Fakultas</h4>
+                <h4 class="modal-title">Tambah Tahun Akademik</h4>
             </div>
 
-            <?= form_open('fakultas/add') ?>
+            <?= form_open('ta/add') ?>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="fakultas">Fakultas</label>
-                    <input type="text" name="fakultas" id="fakultas" class="form-control" placeholder="Fakultas" required>
+                    <label for="ta">Tahun Akademik</label>
+                    <input type="text" name="ta" id="ta" class="form-control" placeholder="Tahun Akademik" required>
+                </div>
+                <div class="form-group">
+                    <label for="Semester">Semester</label>
+                    <input type="text" name="semester" id="Semester" class="form-control" placeholder="Semester" required>
                 </div>
             </div>
             <div class="modal-footer">
@@ -77,21 +83,25 @@
 </div>
 
 <!-- modal edit -->
-<?php foreach ($fakultas as $f) {  ?>
-    <div class="modal fade" id="edit<?= $f['id_fakultas'] ?>">
+<?php foreach ($ta as $g) {  ?>
+    <div class="modal fade" id="edit<?= $g['id_ta'] ?>">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Fakultas <?= $f['fakultas'] ?></h4>
+                    <h4 class="modal-title">Edit ta <?= $g['ta'] ?></h4>
                 </div>
 
-                <?= form_open('fakultas/edit/' . $f['id_fakultas']) ?>
+                <?= form_open('ta/edit/' . $g['id_ta']) ?>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="fakultas">Fakultas</label>
-                        <input type="text" name="fakultas" id="fakultas" class="form-control" value="<?= $f['fakultas'] ?>" required>
+                        <label for="ta">Tahun Akademik</label>
+                        <input type="text" name="ta" id="ta" class="form-control" value="<?= $g['ta'] ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="semester">Semester</label>
+                        <input type="text" name="semester" id="semester" class="form-control" value="<?= $g['semester'] ?>" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -105,14 +115,14 @@
 <?php } ?>
 
 <!-- modal hapus -->
-<?php foreach ($fakultas as $f) {  ?>
-    <div class="modal fade" id="hapus<?= $f['id_fakultas'] ?>">
+<?php foreach ($ta as $g) {  ?>
+    <div class="modal fade" id="hapus<?= $g['id_ta'] ?>">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Hapus Fakultas <strong><?= $f['fakultas'] ?></strong></h4>
+                    <h4 class="modal-title">Hapus Tahun Ajaran <strong><?= $g['ta'] ?></strong></h4>
                 </div>
 
                 <div class="modal-body">
@@ -120,7 +130,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                    <a href="<?= base_url('fakultas/hapus/' . $f['id_fakultas']) ?>" class="btn btn-primary">Ya, Hapus</a>
+                    <a href="<?= base_url('ta/hapus/' . $g['id_ta']) ?>" class="btn btn-primary">Ya, Hapus</a>
                 </div>
             </div>
         </div>
