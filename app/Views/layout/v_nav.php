@@ -50,6 +50,23 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                     <li><a href="<?= base_url('dosen') ?>">Dosen</a></li>
                 </ul>
             </li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Akademik <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="<?= base_url('gedung') ?>">Menu 1</a></li>
+                    <li><a href="<?= base_url('ruangan') ?>">Menu 2</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setting <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="<?= base_url('user') ?>">User</a></li>
+                    <li><a href="<?= base_url('ruangan') ?>">Menu 2</a></li>
+                </ul>
+            </li>
+
             <li><a href="#">About</a></li>
         <?php } ?>
     </ul>
@@ -78,7 +95,7 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                         <img src="<?= base_url('foto/' . session()->get('foto')) ?>" class="img-circle" alt="User Image">
 
                         <p>
-                            <?= session()->get('nama_user') ?>
+                            <?= session()->get('nama_user') ?> -
 
                             <?php if (session()->get('level') == 1) { ?>
                                 <span>Admin</span>
