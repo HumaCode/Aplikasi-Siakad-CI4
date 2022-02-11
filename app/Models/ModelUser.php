@@ -15,6 +15,14 @@ class ModelUser extends Model
             ->getResultArray();
     }
 
+    public function detailData($id_user)
+    {
+        return $this->db->table('tbl_user')
+            ->where('id_user', $id_user)
+            ->get()
+            ->getRowArray();
+    }
+
     public function add($data)
     {
         $this->db->table('tbl_user')->insert($data);

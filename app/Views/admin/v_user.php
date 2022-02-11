@@ -108,3 +108,74 @@
         </div>
     </div>
 </div>
+
+<!-- modal edit -->
+<?php foreach ($user as $g) {  ?>
+    <div class="modal fade" id="edit<?= $g['id_user'] ?>">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit User <?= $g['nama_user'] ?></h4>
+                </div>
+
+                <?= form_open_multipart('user/edit/' . $g['id_user']) ?>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nama_user">Nama User</label>
+                        <input type="text" name="nama_user" id="nama_user" class="form-control" value="<?= $g['nama_user'] ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" class="form-control" value="<?= $g['username'] ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" value="<?= $g['password'] ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        <input type="file" name="foto" id="foto" class="form-control">
+                    </div>
+
+                    <div class="form-group text-center">
+                        <img src="<?= base_url('foto/' . $g['foto']) ?>" width="300" class="img-fluid" alt="" srcset="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+                <?= form_close() ?>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+
+<!-- modal hapus -->
+<?php foreach ($user as $g) {  ?>
+    <div class="modal fade" id="hapus<?= $g['id_user'] ?>">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Hapus user dengan nama <strong><?= $g['nama_user'] ?></strong></h4>
+                </div>
+
+                <div class="modal-body">
+                    <h3>Apakah anda yakin akan menghapus data ini..??</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    <a href="<?= base_url('user/hapus/' . $g['id_user']) ?>" class="btn btn-primary">Ya, Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>

@@ -58,6 +58,8 @@ class Filters extends BaseConfig
                     'ta', 'ta/*',
                     'makul', 'makul/*',
                     'user', 'user/*',
+                    'dosen', 'dosen/*',
+                    'mahasiswa', 'mahasiswa/*',
                     '/'
                 ]
             ],
