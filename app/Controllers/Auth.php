@@ -59,7 +59,6 @@ class Auth extends BaseController
 
                 if ($cek_user) {
                     // buat session
-                    session()->set('log', true);
                     session()->set('nama_user', $cek_user['nama_user']);
                     session()->set('username', $cek_user['username']);
                     session()->set('foto', $cek_user['foto']);
@@ -70,9 +69,33 @@ class Auth extends BaseController
                     return redirect()->to('auth');
                 }
             } else if ($level == 2) {
-                echo "Mahasiswa";
+                $cek_mhs = $this->ModelAuth->login_mhs($username, $password);
+
+                if ($cek_mhs) {
+                    // buat session
+                    session()->set('nama_user', $cek_mhs['nama_mhs']);
+                    session()->set('username', $cek_mhs['nim']);
+                    session()->set('foto', $cek_mhs['foto']);
+                    session()->set('level', $level);
+                    return redirect()->to('mhs');
+                } else {
+                    session()->setFlashdata('pesan', 'Username atau Password salah...!!!');
+                    return redirect()->to('auth');
+                }
             } else if ($level == 3) {
-                echo "Dosen";
+                $cek_dosen = $this->ModelAuth->login_dosen($username, $password);
+
+                if ($cek_dosen) {
+                    // buat session
+                    session()->set('nama_user', $cek_dosen['nama_dosen']);
+                    session()->set('username', $cek_dosen['nidn']);
+                    session()->set('foto', $cek_dosen['foto']);
+                    session()->set('level', $level);
+                    return redirect()->to('dsn');
+                } else {
+                    session()->setFlashdata('pesan', 'Username atau Password salah...!!!');
+                    return redirect()->to('auth');
+                }
             }
         } else {
             // jika tidak valid

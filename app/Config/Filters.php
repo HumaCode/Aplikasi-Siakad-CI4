@@ -2,7 +2,9 @@
 
 namespace Config;
 
-use App\Filters\FilterAuth;
+use App\Filters\FilterAdmin;
+use App\Filters\FilterDsn;
+use App\Filters\FilterMhs;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -24,7 +26,9 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'filterauth'    => FilterAuth::class,
+        'filteradmin'   => FilterAdmin::class,
+        'filtermhs'     => FilterMhs::class,
+        'filterdsn'     => FilterDsn::class,
     ];
 
     /**
@@ -35,19 +39,33 @@ class Filters extends BaseConfig
      */
     public $globals = [
         'before' => [
-            'filterauth' => [
+            'filteradmin' => [
                 'except' => [
                     'auth', 'auth/*',
                     'home', 'home/*',
                     '/'
                 ]
-            ]
+            ],
+            'filtermhs' => [
+                'except' => [
+                    'auth', 'auth/*',
+                    'home', 'home/*',
+                    '/'
+                ]
+            ],
+            'filterdsn' => [
+                'except' => [
+                    'auth', 'auth/*',
+                    'home', 'home/*',
+                    '/'
+                ]
+            ],
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
         ],
         'after' => [
-            'filterauth' => [
+            'filteradmin' => [
                 'except' => [
                     'admin', 'admin/*',
                     'home', 'home/*',
@@ -62,6 +80,20 @@ class Filters extends BaseConfig
                     'mahasiswa', 'mahasiswa/*',
                     'kelas', 'kelas/*',
                     'jadwalKuliah', 'jadwalKuliah/*',
+                    '/'
+                ]
+            ],
+            'filtermhs' => [
+                'except' => [
+                    'mhs', 'mhs/*',
+                    'home', 'home/*',
+                    '/'
+                ]
+            ],
+            'filterdsn' => [
+                'except' => [
+                    'dsn', 'dsn/*',
+                    'home', 'home/*',
                     '/'
                 ]
             ],

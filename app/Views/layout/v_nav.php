@@ -68,6 +68,28 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
             </li>
 
             <li><a href="#">About</a></li>
+        <?php } else if (session()->get('level') == 2) { ?>
+            <li class="<?= ($title == 'Dashboard') ? "active" : "" ?>"><a href="<?= base_url('mhs') ?>">Dashboard</a></li>
+
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Menu 1</a></li>
+                    <li><a href="#">Menu 2</a></li>
+                </ul>
+            </li>
+        <?php } else if (session()->get('level') == 3) { ?>
+            <li class="<?= ($title == 'Dashboard') ? "active" : "" ?>"><a href="<?= base_url('dsn') ?>">Dashboard</a></li>
+
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Menu 1</a></li>
+                    <li><a href="#">Menu 2</a></li>
+                </ul>
+            </li>
         <?php } ?>
     </ul>
 </div>
@@ -84,15 +106,30 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
             <li class="dropdown user user-menu">
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <!-- The user image in the navbar-->
-                    <img src="<?= base_url('foto/' . session()->get('foto')) ?>" class="user-image" alt="User Image">
-                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+
+                    <!-- foto dropdown -->
+                    <?php if (session()->get('level') == 1) {  ?>
+                        <img src="<?= base_url('foto/' . session()->get('foto')) ?>" class="user-image" alt="User Image">
+                    <?php } else if (session()->get('level') == 2) { ?>
+                        <img src="<?= base_url('fotomhs/' . session()->get('foto')) ?>" class="user-image" alt="User Image">
+                    <?php } else if (session()->get('level') == 3) { ?>
+                        <img src="<?= base_url('fotodosen/' . session()->get('foto')) ?>" class="user-image" alt="User Image">
+                    <?php } ?>
+
                     <span class="hidden-xs"><?= session()->get('nama_user') ?></span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- The user image in the menu -->
                     <li class="user-header">
-                        <img src="<?= base_url('foto/' . session()->get('foto')) ?>" class="img-circle" alt="User Image">
+                        <?php if (session()->get('level') == 1) {  ?>
+                            <img src="<?= base_url('foto/' . session()->get('foto')) ?>" class="img-circle" alt="User Image">
+                        <?php } else if (session()->get('level') == 2) { ?>
+                            <img src="<?= base_url('fotomhs/' . session()->get('foto')) ?>" class="img-circle" alt="User Image">
+                        <?php } else if (session()->get('level') == 3) { ?>
+                            <img src="<?= base_url('fotodosen/' . session()->get('foto')) ?>" class="img-circle" alt="User Image">
+                        <?php } ?>
+
+
 
                         <p>
                             <?= session()->get('nama_user') ?> -
