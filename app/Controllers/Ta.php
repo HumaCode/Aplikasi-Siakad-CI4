@@ -60,4 +60,34 @@ class Ta extends BaseController
         session()->setFlashdata('pesan', 'Data berhasil di hapus...!!!');
         return redirect()->to('ta');
     }
+
+
+    //  ta setting
+
+    public function setting()
+    {
+        $data = [
+            'title' => 'Setting Tahun Akademik',
+            'isi'   => 'admin/v_set-ta',
+            'ta'    => $this->ModelTa->allData(),
+        ];
+
+        return view('layout/v_wrapper', $data);
+    }
+
+    public function setStatusTa($id_ta)
+    {
+        $data = [
+            'status' => 1
+        ];
+
+        // reset tabel
+        $this->ModelTa->resetTa();
+
+        // update tabel
+        $this->ModelTa->edit($id_ta, $data);
+
+        session()->setFlashdata('pesan', 'Tahun akademik berhasil di aktifkan...!!!');
+        return redirect()->to('ta/setting');
+    }
 }

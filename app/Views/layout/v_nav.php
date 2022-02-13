@@ -55,7 +55,7 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Akademik <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="<?= base_url('kelas') ?>">Kelas</a></li>
-                    <li><a href="<?= base_url('ruangan') ?>">Menu 2</a></li>
+                    <li><a href="<?= base_url('jadwalKuliah') ?>">Jadwal Kuliah</a></li>
                 </ul>
             </li>
 
@@ -63,7 +63,7 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setting <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="<?= base_url('user') ?>">User</a></li>
-                    <li><a href="<?= base_url('ruangan') ?>">Menu 2</a></li>
+                    <li><a href="<?= base_url('ta/setting') ?>">Tahun Akademik</a></li>
                 </ul>
             </li>
 
@@ -139,11 +139,17 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                 <h1>
                     <?= $title ?>
                 </h1>
+
                 <?php if ($title == 'Detail Mata Kuliah') { ?>
                     <div class="text-danger">
                         <small><?= $prodi['prodi'] ?></small>
                     </div>
+                <?php } else if ($title == 'Jadwal Kuliah') { ?>
+                    <small><strong>Tahun Akademik : <?= $ta['ta'] . '/' . $ta['semester'] ?></strong></small>
+                <?php } else if ($title == 'Detail Jadwal') { ?>
+                    <small><strong><?= $prodi['prodi'] ?></strong></small>
                 <?php } ?>
+
                 <ol class="breadcrumb">
                     <li><a href="#"> Siakad</a></li>
                     <li><a href="#"><?= $title ?></a></li>

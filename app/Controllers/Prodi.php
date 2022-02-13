@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ModelDosen;
 use App\Models\ModelFakultas;
 use App\Models\ModelProdi;
 
@@ -11,6 +12,7 @@ class Prodi extends BaseController
     {
         $this->ModelProdi = new ModelProdi();
         $this->ModelFakultas = new ModelFakultas();
+        $this->ModelDosen = new ModelDosen();
     }
 
     public function index()
@@ -29,7 +31,8 @@ class Prodi extends BaseController
         $data = [
             'title'     => 'Tambah Prodi',
             'isi'       => 'admin/prodi/v_add',
-            'fakultas'  => $this->ModelFakultas->allData()
+            'fakultas'  => $this->ModelFakultas->allData(),
+            'dosen'     => $this->ModelDosen->allData(),
         ];
 
         return view('layout/v_wrapper', $data);
@@ -55,18 +58,33 @@ class Prodi extends BaseController
                 ]
             ],
             'prodi' => [
-                'label' => 'Peodi',
+                'label' => 'Prodi',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong..!!'
                 ]
-            ]
+            ],
+            'jenjang' => [
+                'label' => 'Jenjang',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong..!!'
+                ]
+            ],
+            'ka_prodi' => [
+                'label' => 'Ka. Prodi',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong..!!'
+                ]
+            ],
         ])) {
             $data = [
                 'id_fakultas'   => htmlspecialchars($this->request->getVar('fakultas')),
                 'kd_prodi'      => htmlspecialchars($this->request->getVar('kd_prodi')),
                 'prodi'         => htmlspecialchars($this->request->getVar('prodi')),
                 'jenjang'       => htmlspecialchars($this->request->getVar('jenjang')),
+                'ka_prodi'      => htmlspecialchars($this->request->getVar('ka_prodi')),
             ];
 
             // masukan ke dalam model
@@ -89,6 +107,7 @@ class Prodi extends BaseController
             'isi'       => 'admin/prodi/v_edit',
             'fakultas'  => $this->ModelFakultas->allData(),
             'prodi'     => $this->ModelProdi->dataId($id_prodi),
+            'dosen'     => $this->ModelDosen->allData(),
         ];
 
         return view('layout/v_wrapper', $data);
@@ -118,13 +137,28 @@ class Prodi extends BaseController
                 'errors' => [
                     'required' => '{field} tidak boleh kosong..!!'
                 ]
-            ]
+            ],
+            'jenjang' => [
+                'label' => 'Jenjang',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong..!!'
+                ]
+            ],
+            'ka_prodi' => [
+                'label' => 'Ka. Prodi',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong..!!'
+                ]
+            ],
         ])) {
             $data = [
                 'id_fakultas'   => htmlspecialchars($this->request->getVar('fakultas')),
                 'kd_prodi'      => htmlspecialchars($this->request->getVar('kd_prodi')),
                 'prodi'         => htmlspecialchars($this->request->getVar('prodi')),
                 'jenjang'       => htmlspecialchars($this->request->getVar('jenjang')),
+                'ka_prodi'      => htmlspecialchars($this->request->getVar('ka_prodi')),
             ];
 
             // masukan ke dalam model

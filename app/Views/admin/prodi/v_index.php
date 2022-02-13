@@ -27,6 +27,7 @@
                             <th>Kode Prodi</th>
                             <th>Prodi</th>
                             <th>Jenjang</th>
+                            <th>Ka. Prodi</th>
                             <th width="200" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -40,6 +41,7 @@
                                 <td><?= $r['kd_prodi'] ?></td>
                                 <td><?= $r['prodi'] ?></td>
                                 <td class="text-center"><?= $r['jenjang'] ?></td>
+                                <td><?= $r['ka_prodi'] ?></td>
                                 <td class="text-center">
                                     <a href="<?= base_url('prodi/edit/' . $r['id_prodi']) ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
                                     <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapus<?= $r['id_prodi'] ?>"><i class="fa fa-trash"></i></button>

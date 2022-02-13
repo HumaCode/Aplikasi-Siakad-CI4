@@ -53,6 +53,16 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label for="ka_prodi">Ka. Prodi</label>
+                    <select name="ka_prodi" id="ka_prodi" class="form-control">
+                        <option value="">-- Pilih --</option>
+                        <?php foreach ($dosen as $d) { ?>
+                            <option value="<?= $d['nama_dosen'] ?>"><?= $d['nama_dosen'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+
             </div>
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
