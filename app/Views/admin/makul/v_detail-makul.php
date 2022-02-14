@@ -61,7 +61,7 @@
                     </div>
                 <?php } ?>
 
-                <table class="table table-bordered table-hover">
+                <table id="makul" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th class="text-center" width="50">No</th>
@@ -126,6 +126,7 @@
                     <label for="sks">SKS</label>
                     <select name="sks" id="sks" class="form-control">
                         <option value="">-- Pilih --</option>
+                        <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
@@ -184,3 +185,19 @@
         </div>
     </div>
 <?php } ?>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#makul').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': false,
+            'info': false,
+            'autoWidth': false,
+            'responsive': true
+        })
+    })
+</script>

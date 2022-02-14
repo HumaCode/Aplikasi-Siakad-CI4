@@ -73,10 +73,10 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
 
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Akademik <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu 1</a></li>
-                    <li><a href="#">Menu 2</a></li>
+                    <li><a href="<?= base_url('krs') ?>">Kartu Rencana Studi (KRS)</a></li>
+                    <li><a href="#">KArtu Hasil Studi (KHS)</a></li>
                 </ul>
             </li>
         <?php } else if (session()->get('level') == 3) { ?>
@@ -137,7 +137,7 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                             <?php if (session()->get('level') == 1) { ?>
                                 <span>Admin</span>
                             <?php } else if (session()->get('level') == 2) { ?>
-                                <span>Mahasiswa</span>
+                                <span><?= session()->get('username') ?></span>
                             <?php } else if (session()->get('level') == 3) { ?>
                                 <span>Dosen</span>
                             <?php } ?>
@@ -181,8 +181,8 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                     <div class="text-danger">
                         <small><?= $prodi['prodi'] ?></small>
                     </div>
-                <?php } else if ($title == 'Jadwal Kuliah') { ?>
-                    <small><strong>Tahun Akademik : <?= $ta['ta'] . '/' . $ta['semester'] ?></strong></small>
+                <?php } else if ($title == 'Jadwal Kuliah' || $title == 'Kartu Rencana Studi (KRS)') { ?>
+                    <small><strong>Tahun Akademik : <?= $ta['ta'] . ' - Semester ' . $ta['semester'] ?></strong></small>
                 <?php } else if ($title == 'Detail Jadwal') { ?>
                     <small><strong><?= $prodi['prodi'] ?></strong></small>
                 <?php } ?>

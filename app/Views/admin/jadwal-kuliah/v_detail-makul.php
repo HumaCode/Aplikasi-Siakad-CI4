@@ -133,7 +133,9 @@
                     <select name="makul" id="makul" class="form-control">
                         <option value="">-- Pilih --</option>
                         <?php foreach ($makul as $m) { ?>
-                            <option value="<?= $m['id_makul'] ?>"><?= $m['smt'] . ' | ' . $m['makul'] . ' | ' . $m['sks'] ?> SKS</option>
+                            <?php if ($m['semester'] == $ta['semester']) { ?>
+                                <option value="<?= $m['id_makul'] ?>"><?= $m['smt'] . ' | ' . $m['kd_makul'] . ' | ' . $m['makul'] . ' | ' . $m['sks'] ?> SKS</option>
+                            <?php } ?>
                         <?php } ?>
                     </select>
                 </div>

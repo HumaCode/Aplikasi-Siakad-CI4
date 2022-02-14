@@ -90,11 +90,11 @@ class Mahasiswa extends BaseController
             $nama_file = $foto->getRandomName();
 
             $data = [
-                'nim'      => htmlspecialchars($this->request->getVar('nim')),
-                'nama_mhs'          => htmlspecialchars($this->request->getVar('nama')),
-                'id_prodi'    => htmlspecialchars($this->request->getVar('prodi')),
+                'nim'           => htmlspecialchars($this->request->getVar('nim')),
+                'nama_mhs'      => htmlspecialchars($this->request->getVar('nama')),
+                'id_prodi'      => htmlspecialchars($this->request->getVar('prodi')),
                 'password'      => htmlspecialchars($this->request->getVar('password')),
-                'foto'          => $nama_file,
+                'foto_mhs'      => $nama_file,
             ];
 
             // masukan ke folder
@@ -188,19 +188,19 @@ class Mahasiswa extends BaseController
                 // hapus foto lama
                 $mhs = $this->ModelMahasiswa->dataId($id_mhs);
 
-                if ($mhs['foto'] != "default.png") {
-                    unlink('fotomhs/' . $mhs['foto']);
+                if ($mhs['foto_mhs'] != "default.png") {
+                    unlink('fotomhs/' . $mhs['foto_mhs']);
                 }
 
 
                 $nama_file = $foto->getRandomName();
 
                 $data = [
-                    'nim'      => htmlspecialchars($this->request->getVar('nim')),
-                    'nama_mhs'          => htmlspecialchars($this->request->getVar('nama')),
-                    'id_prodi'    => htmlspecialchars($this->request->getVar('prodi')),
+                    'nim'           => htmlspecialchars($this->request->getVar('nim')),
+                    'nama_mhs'      => htmlspecialchars($this->request->getVar('nama')),
+                    'id_prodi'      => htmlspecialchars($this->request->getVar('prodi')),
                     'password'      => htmlspecialchars($this->request->getVar('password')),
-                    'foto'          => $nama_file,
+                    'foto_mhs'      => $nama_file,
                 ];
 
                 // masukan ke folder
@@ -226,8 +226,8 @@ class Mahasiswa extends BaseController
         // hapus foto lama
         $mhs = $this->ModelMahasiswa->dataId($id_mhs);
 
-        if ($mhs['foto'] != "") {
-            unlink('fotomhs/' . $mhs['foto']);
+        if ($mhs['foto_mhs'] != "") {
+            unlink('fotomhs/' . $mhs['foto_mhs']);
         }
 
         // masukan ke dalam model

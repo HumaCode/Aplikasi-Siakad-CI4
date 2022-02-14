@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <img src="<?= base_url('fotomhs/' . $mhs['foto']) ?>" id="gambar_load" width="200" alt="">
+                            <img src="<?= base_url('fotomhs/' . $mhs['foto_mhs']) ?>" id="gambar_load" width="200" alt="">
                         </div>
                     </div>
                 </div>

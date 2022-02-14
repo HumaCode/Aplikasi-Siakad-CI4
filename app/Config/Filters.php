@@ -87,6 +87,7 @@ class Filters extends BaseConfig
                 'except' => [
                     'mhs', 'mhs/*',
                     'home', 'home/*',
+                    'krs', 'krs/*',
                     '/'
                 ]
             ],

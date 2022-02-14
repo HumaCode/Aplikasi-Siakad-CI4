@@ -53,7 +53,7 @@
                                 <td><?= $m['nama_mhs'] ?></td>
                                 <td><?= $m['prodi'] ?></td>
                                 <td class="text-center">
-                                    <img src="<?= base_url('fotomhs/' . $m['foto']) ?>" width="70" class="img-circle" alt="User Image">
+                                    <img src="<?= base_url('fotomhs/' . $m['foto_mhs']) ?>" width="70" class="img-circle" alt="User Image">
                                 </td>
                                 <td class="text-center">
                                     <a href="<?= base_url('mahasiswa/edit/' . $m['id_mhs']) ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>

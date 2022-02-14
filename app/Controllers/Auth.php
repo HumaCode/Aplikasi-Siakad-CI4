@@ -75,7 +75,7 @@ class Auth extends BaseController
                     // buat session
                     session()->set('nama_user', $cek_mhs['nama_mhs']);
                     session()->set('username', $cek_mhs['nim']);
-                    session()->set('foto', $cek_mhs['foto']);
+                    session()->set('foto', $cek_mhs['foto_mhs']);
                     session()->set('level', $level);
                     return redirect()->to('mhs');
                 } else {
