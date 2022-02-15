@@ -76,7 +76,8 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Akademik <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="<?= base_url('krs') ?>">Kartu Rencana Studi (KRS)</a></li>
-                    <li><a href="#">KArtu Hasil Studi (KHS)</a></li>
+                    <li><a href="#">Kartu Hasil Studi (KHS)</a></li>
+                    <li><a href="<?= base_url('mhs/absensi') ?>">Absensi Mahasiswa</a></li>
                 </ul>
             </li>
         <?php } else if (session()->get('level') == 3) { ?>
@@ -181,7 +182,7 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                     <div class="text-danger">
                         <small><?= $prodi['prodi'] ?></small>
                     </div>
-                <?php } else if ($title == 'Jadwal Kuliah' || $title == 'Kartu Rencana Studi (KRS)') { ?>
+                <?php } else if ($title == 'Jadwal Kuliah' || $title == 'Kartu Rencana Studi (KRS)' || $title == 'Absensi') { ?>
                     <small><strong>Tahun Akademik : <?= $ta['ta'] . ' - Semester ' . $ta['semester'] ?></strong></small>
                 <?php } else if ($title == 'Detail Jadwal') { ?>
                     <small><strong><?= $prodi['prodi'] ?></strong></small>
