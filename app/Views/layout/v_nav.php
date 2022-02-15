@@ -85,10 +85,10 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
 
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Akademik <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu 1</a></li>
-                    <li><a href="#">Menu 2</a></li>
+                    <li><a href="<?= base_url('dsn/jadwal') ?>">Jadwal Mengajar</a></li>
+                    <li><a href="<?= base_url('dsn/absenKelas') ?>">Absen Kelas</a></li>
                 </ul>
             </li>
         <?php } ?>
@@ -186,6 +186,8 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                     <small><strong>Tahun Akademik : <?= $ta['ta'] . ' - Semester ' . $ta['semester'] ?></strong></small>
                 <?php } else if ($title == 'Detail Jadwal') { ?>
                     <small><strong><?= $prodi['prodi'] ?></strong></small>
+                <?php } else if ($title == 'Daftar Absensi') { ?>
+                    <small><strong>Kelas : <?= $detailJadwal['nama_kelas'] . ' | ' . $detailJadwal['th_angkatan'] ?></strong></small>
                 <?php } ?>
 
                 <ol class="breadcrumb">

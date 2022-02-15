@@ -18,6 +18,7 @@ class Mhs extends BaseController
         $data = [
             'title'         => 'Dashboard',
             'mhs'           => $this->ModelKrs->dataMahasiswa(),
+            'ta'            => $this->ModelTa->ta_aktif(),
             'isi'           => 'v_dashboard-mhs',
         ];
 
