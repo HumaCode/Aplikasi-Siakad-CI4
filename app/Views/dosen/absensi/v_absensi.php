@@ -1,52 +1,74 @@
 <div class="row">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="table-responsive">
+                <table class=" table-striped">
+                    <thead>
+                        <tr>
+                            <td width="150">Program Studi</td>
+                            <td width="20">:</td>
+                            <td><?= $detailJadwal['prodi'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>Fakultas</td>
+                            <td>:</td>
+                            <td><?= $detailJadwal['fakultas'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>Kode</td>
+                            <td>:</td>
+                            <td><?= $detailJadwal['kd_makul'] ?></td>
+                        </tr>
+
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <table>
+                <tr>
+                    <td width="150">Mata Kuliah</td>
+                    <td width="20">:</td>
+                    <td><?= $detailJadwal['makul'] ?></td>
+                </tr>
+                <tr>
+                    <td>Waktu</td>
+                    <td>:</td>
+                    <td><?= $detailJadwal['hari'] . ', ' . $detailJadwal['waktu'] ?></td>
+                </tr>
+                <tr>
+                    <td>Nama Dosen</td>
+                    <td>:</td>
+                    <td><?= $detailJadwal['nama_dosen'] ?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
     <div class="col-sm-12">
         <div class="table-responsive">
-            <table class=" table-striped">
-                <thead>
 
-                    <tr>
-                        <td width="150">Program Studi</td>
-                        <td width="20">:</td>
-                        <td><?= $detailJadwal['prodi'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Fakultas</td>
-                        <td>:</td>
-                        <td><?= $detailJadwal['fakultas'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Kode</td>
-                        <td>:</td>
-                        <td><?= $detailJadwal['kd_makul'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Mata Kuliah</td>
-                        <td>:</td>
-                        <td><?= $detailJadwal['makul'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Waktu</td>
-                        <td>:</td>
-                        <td><?= $detailJadwal['hari'] . ', ' . $detailJadwal['waktu'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Nama Dosen</td>
-                        <td>:</td>
-                        <td><?= $detailJadwal['nama_dosen'] ?></td>
-                    </tr>
-                </thead>
-            </table>
+            <a href="<?= base_url('dsn/printAbsensi/' . $detailJadwal['id_jadwal']) ?>" target="_blank" class="btn btn-info btn-sm pull-right" style="margin-bottom: 10px;"><i class="fa fa-print"></i> &nbsp;Cetak Absensi</a>
 
-            <a href="<?= base_url('dsn/printAbsensi') ?>" target="_blank" class="btn btn-info btn-sm pull-right" style="margin-bottom: 10px;"><i class="fa fa-print"></i> &nbsp;Cetak Absensi</a>
+            <!-- flasdata -->
+            <?php if (session()->getFlashdata('pesan')) { ?>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+                    <?= session()->getFlashdata('pesan') ?>
+                </div>
+            <?php } ?>
 
-            <table class="table table-striped table-bordered">
+            <?= form_open('dsn/simpanAbsen/' . $detailJadwal['id_jadwal']) ?>
+            <table class="table table-striped table-bordered text-sm">
                 <thead class="label-success">
                     <tr>
                         <th class="text-center" rowspan="2">NO</th>
-                        <th class="text-center" rowspan="2">NIM</th>
-                        <th class="text-center" rowspan="2">Mahasiswa</th>
+                        <th class="text-center" rowspan="2" width="150">NIM</th>
+                        <th class="text-center" rowspan="2" width="200">Mahasiswa</th>
                         <th class="text-center" colspan="18">Pertemuan</th>
-                        <th class="text-center" rowspan="2">%</th>
                     </tr>
                     <tr>
                         <th class="text-center">1</th>
@@ -73,188 +95,154 @@
                     <?php $i = 1;
                     $sks = 0;
                     foreach ($mhs as $dm) {
+
+                        $absen = ($dm['p1'] + $dm['p2'] + $dm['p3'] + $dm['p4'] + $dm['p5'] + $dm['p6'] + $dm['p7'] + $dm['p8'] + $dm['p9'] + $dm['p10'] + $dm['p11'] + $dm['p12'] + $dm['p13'] + $dm['p14'] + $dm['p15'] + $dm['p16'] + $dm['p17'] + $dm['p18']) / 36 * 100;
+
+                        echo form_hidden($dm['id_krs'] . 'nilai_absen', number_format($absen, 0));
+
+                        echo form_hidden($dm['id_krs'] . 'id_krs', $dm['id_krs'])
                     ?>
                         <tr>
                             <td class="text-center"><?= $i ?></td>
                             <td class="text-center"><?= $dm['nim'] ?></td>
                             <td><?= $dm['nama_mhs'] ?></td>
                             <td class="text-center">
-                                <?php if ($dm['p1'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p1'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p1'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p1" id="p1">
+                                    <option value="0" <?= ($dm['p1'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p1'] == 1) ? 'selected' : '' ?>>I</option>
+                                    <option value="2" <?= ($dm['p1'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
 
                             <td class="text-center">
-                                <?php if ($dm['p2'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p2'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p2'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p2" id="p2">
+                                    <option value="0" <?= ($dm['p2'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p2'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p2'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p3'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p3'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p3'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p3" id="p3">
+                                    <option value="0" <?= ($dm['p3'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p3'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p3'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
 
                             <td class="text-center">
-                                <?php if ($dm['p4'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p4'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p4'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p4" id="p4">
+                                    <option value="0" <?= ($dm['p4'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p4'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p4'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
 
                             <td class="text-center">
-                                <?php if ($dm['p5'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p5'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p5'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p5" id="p5">
+                                    <option value="0" <?= ($dm['p5'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p5'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p5'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p6'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p6'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p6'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p6" id="p6">
+                                    <option value="0" <?= ($dm['p6'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p6'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p6'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p7'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p7'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p7'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p7" id="p7">
+                                    <option value="0" <?= ($dm['p7'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p7'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p7'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p8'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p8'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p8'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p8" id="p8">
+                                    <option value="0" <?= ($dm['p8'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p8'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p8'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p9'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p9'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p9'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p9" id="p9">
+                                    <option value="0" <?= ($dm['p9'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p9'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p9'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p10'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p10'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p10'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p10" id="p10">
+                                    <option value="0" <?= ($dm['p10'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p10'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p10'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p11'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p11'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p11'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p11" id="p11">
+                                    <option value="0" <?= ($dm['p11'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p11'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p11'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p12'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p12'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p12'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p12" id="p12">
+                                    <option value="0" <?= ($dm['p12'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p12'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p12'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p13'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p13'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p13'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p13" id="p13">
+                                    <option value="0" <?= ($dm['p13'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p13'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p13'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p14'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p14'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p14'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p14" id="p14">
+                                    <option value="0" <?= ($dm['p14'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p14'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p14'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p15'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p15'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p15'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p15" id="p15">
+                                    <option value="0" <?= ($dm['p15'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p15'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p15'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p16'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p16'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p16'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p16" id="p16">
+                                    <option value="0" <?= ($dm['p16'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p16'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p16'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p17'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p17'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p17'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
+                                <select name="<?= $dm['id_krs'] ?>p17" id="p17">
+                                    <option value="0" <?= ($dm['p17'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p17'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p17'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                             <td class="text-center">
-                                <?php if ($dm['p18'] == 0) { ?>
-                                    <i class="fa fa-times text-danger"></i>
-                                <?php } else if ($dm['p18'] == 1) { ?>
-                                    <i class="fa fa-info text-primary"></i>
-                                <?php } else if ($dm['p18'] == 2) { ?>
-                                    <i class="fa fa-check text-success"></i>
-                                <?php } ?>
-                            </td>
-                            <td class="text-center">
-                                <?php
-                                $absen = ($dm['p1'] + $dm['p2'] + $dm['p3'] + $dm['p4'] + $dm['p5'] + $dm['p6'] + $dm['p7'] + $dm['p8'] + $dm['p9'] + $dm['p10'] + $dm['p11'] + $dm['p12'] + $dm['p13'] + $dm['p14'] + $dm['p15'] + $dm['p16'] + $dm['p17'] + $dm['p18']) / 36 * 100;
-
-                                echo number_format($absen, 0) . ' %';
-                                ?>
+                                <select name="<?= $dm['id_krs'] ?>p18" id="p18">
+                                    <option value="0" <?= ($dm['p18'] == 0) ? 'selected' : '' ?>>A</option>
+                                    <option value="1" <?= ($dm['p18'] == 1) ? 'selected' : '' ?>>I </option>
+                                    <option value="2" <?= ($dm['p18'] == 2) ? 'selected' : '' ?>>H</option>
+                                </select>
                             </td>
                         </tr>
                     <?php $i++;
                     } ?>
                 </tbody>
             </table>
+
+            <button type="submit" class="btn btn-sm btn-success pull-right">Simpan</button>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

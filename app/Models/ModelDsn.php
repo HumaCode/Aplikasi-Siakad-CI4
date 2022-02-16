@@ -15,7 +15,7 @@ class ModelDsn extends Model
             ->getRowArray();
     }
 
-    public function jadwalDosen($id_dosen)
+    public function jadwalDosen($id_dosen, $id_ta)
     {
         return $this->db->table('tbl_jadwal')
             ->join('tbl_makul', 'tbl_makul.id_makul=tbl_jadwal.id_makul', 'left')
@@ -24,6 +24,7 @@ class ModelDsn extends Model
             ->join('tbl_ruangan', 'tbl_ruangan.id_ruangan=tbl_jadwal.id_ruangan', 'left')
             ->join('tbl_kelas', 'tbl_kelas.id_kelas=tbl_jadwal.id_kelas', 'left')
             ->where('tbl_jadwal.id_dosen', $id_dosen)
+            ->where('tbl_jadwal.id_ta', $id_ta)
             ->get()
             ->getResultArray();
     }
@@ -48,5 +49,10 @@ class ModelDsn extends Model
             ->where('id_jadwal', $id_jadwal)
             ->get()
             ->getResultArray();
+    }
+
+    public function simpanAbsen($data)
+    {
+        $this->db->table('tbl_krs')->where('id_krs', $data['id_krs'])->update($data);
     }
 }
