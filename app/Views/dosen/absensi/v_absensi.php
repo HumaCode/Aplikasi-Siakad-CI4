@@ -96,10 +96,6 @@
                     $sks = 0;
                     foreach ($mhs as $dm) {
 
-                        $absen = ($dm['p1'] + $dm['p2'] + $dm['p3'] + $dm['p4'] + $dm['p5'] + $dm['p6'] + $dm['p7'] + $dm['p8'] + $dm['p9'] + $dm['p10'] + $dm['p11'] + $dm['p12'] + $dm['p13'] + $dm['p14'] + $dm['p15'] + $dm['p16'] + $dm['p17'] + $dm['p18']) / 36 * 100;
-
-                        echo form_hidden($dm['id_krs'] . 'nilai_absen', number_format($absen, 0));
-
                         echo form_hidden($dm['id_krs'] . 'id_krs', $dm['id_krs'])
                     ?>
                         <tr>

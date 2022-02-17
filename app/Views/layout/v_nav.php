@@ -76,7 +76,7 @@ function tanggal_indonesia($tgl, $tampil_hari = true)
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Akademik <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="<?= base_url('krs') ?>">Kartu Rencana Studi (KRS)</a></li>
-                    <li><a href="#">Kartu Hasil Studi (KHS)</a></li>
+                    <li><a href="<?= base_url('mhs/khs') ?>">Kartu Hasil Studi (KHS)</a></li>
                     <li><a href="<?= base_url('mhs/absensi') ?>">Absensi Mahasiswa</a></li>
                 </ul>
             </li>

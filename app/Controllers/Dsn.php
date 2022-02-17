@@ -18,6 +18,7 @@ class Dsn extends BaseController
         $data = [
             'title'         => 'Dashboard',
             'isi'           => 'v_dashboard-dosen',
+            'dsn'         => $this->ModelDsn->dataDosen(),
         ];
 
         return view('layout/v_wrapper', $data);
@@ -90,7 +91,6 @@ class Dsn extends BaseController
                 'p16' => $this->request->getPost($value['id_krs'] . 'p16'),
                 'p17' => $this->request->getPost($value['id_krs'] . 'p17'),
                 'p18' => $this->request->getPost($value['id_krs'] . 'p18'),
-                'nilai_absen' => $this->request->getPost($value['id_krs'] . 'nilai_absen'),
             ];
 
             $this->ModelDsn->simpanAbsen($data);
@@ -129,7 +129,6 @@ class Dsn extends BaseController
 
     public function dataNilai($id_jadwal)
     {
-        $id_dosen = $this->ModelDsn->dataDosen();
         $ta         =  $this->ModelTa->ta_aktif();
 
         $data = [
@@ -141,5 +140,70 @@ class Dsn extends BaseController
         ];
 
         return view('layout/v_wrapper', $data);
+    }
+
+    public function simpanNilai($id_jadwal)
+    {
+        $mhs = $this->ModelDsn->mhs($id_jadwal);
+
+        foreach ($mhs as $key => $value) {
+
+            // nilai akhir
+            $absen  = $this->request->getPost($value['id_krs'] . 'absen');
+            $tugas  = $this->request->getPost($value['id_krs'] . 'nilai_tugas');
+            $uts    = $this->request->getPost($value['id_krs'] . 'nilai_uts');
+            $uas    = $this->request->getPost($value['id_krs'] . 'nilai_uas');
+
+            $na = ($absen * 15 / 100) + ($tugas * 15 / 100) + ($uts * 30 / 100) + ($uas * 40 / 100);
+
+
+            // nilai huruf 
+            if ($na >= 85) {
+                $nh     = 'A';
+                $bobot  = 4;
+            } else if ($na < 85 && $na >= 75) {
+                $nh     = 'B';
+                $bobot  = 3;
+            } else if ($na < 75 && $na >= 65) {
+                $nh     = 'C';
+                $bobot  = 2;
+            } else if ($na < 65 && $na >= 55) {
+                $nh     = 'D';
+                $bobot  = 1;
+            } else {
+                $nh     = 'E';
+                $bobot  = 0;
+            }
+
+
+            $data = [
+                'id_krs'        => $this->request->getPost($value['id_krs'] . 'id_krs'),
+                'nilai_tugas'   => $this->request->getPost($value['id_krs'] . 'nilai_tugas'),
+                'nilai_uts'     => $this->request->getPost($value['id_krs'] . 'nilai_uts'),
+                'nilai_uas'     => $this->request->getPost($value['id_krs'] . 'nilai_uas'),
+                'nilai_akhir'   => number_format($na, 0),
+                'nilai_huruf'   => $nh,
+                'bobot'         => $bobot,
+            ];
+
+            $this->ModelDsn->simpanNilai($data);
+        }
+
+        session()->setFlashdata('pesan', 'Nilai berhasil di simpan...!!!');
+        return redirect()->to('dsn/dataNilai/' . $id_jadwal);
+    }
+
+    public function printNilai($id_jadwal)
+    {
+        $ta         =  $this->ModelTa->ta_aktif();
+
+        $data = [
+            'title'         => 'Nilai Mahasiswa Tahun Akademik ' . $ta['ta'] . ' | ' . $ta['semester'],
+            'detailJadwal'  => $this->ModelDsn->detailJadwal($id_jadwal),
+            'mhs'           => $this->ModelDsn->mhs($id_jadwal),
+            'ta'            => $ta,
+        ];
+
+        return view('dosen/nilai/v_print-nilai', $data);
     }
 }

@@ -63,6 +63,7 @@
     <?php } ?>
 
     <div class="table-responsive" style="margin-top: 5px;">
+        <?= form_open('dsn/simpanNilai/' . $detailJadwal['id_jadwal']) ?>
         <table class="table table-striped table-bordered">
             <thead class="label-success">
 
@@ -70,7 +71,7 @@
                     <th class="text-center" rowspan="2">NO</th>
                     <th class="text-center" rowspan="2" width="150">NIM</th>
                     <th class="text-center" rowspan="2" width="200">Mahasiswa</th>
-                    <th class="text-center" colspan="6">Nilai</th>
+                    <th class="text-center" colspan="7">Nilai</th>
                 </tr>
                 <tr>
                     <th class="text-center">Absensi </th>
@@ -79,6 +80,7 @@
                     <th class="text-center" width="100">UAS </th>
                     <th class="text-center">NA <br> (15%+15%+30%+40%)</th>
                     <th class="text-center">Huruf</th>
+                    <th class="text-center">Bobot</th>
                 </tr>
             </thead>
 
@@ -92,17 +94,29 @@
                         <td class="text-center"><?= $i ?></td>
                         <td class="text-center"><?= $dm['nim'] ?></td>
                         <td><?= $dm['nama_mhs'] ?></td>
-                        <td class="text-center"><?= $dm['nilai_absen'] ?></td>
-                        <td><input type="text" class="form-control" value="<?= $dm['nilai_tugas'] ?>"></td>
-                        <td><input type="text" class="form-control" value="<?= $dm['nilai_uts'] ?>"></td>
-                        <td><input type="text" class="form-control" value="<?= $dm['nilai_uas'] ?>"></td>
-                        <td class="text-center"><?= $dm['nilai_akhir'] ?></td>
-                        <td class="text-center"><?= $dm['nilai_huruf'] ?></td>
+                        <td class="text-center">
+                            <?php
+                            $absen = ($dm['p1'] + $dm['p2'] + $dm['p3'] + $dm['p4'] + $dm['p5'] + $dm['p6'] + $dm['p7'] + $dm['p8'] + $dm['p9'] + $dm['p10'] + $dm['p11'] + $dm['p12'] + $dm['p13'] + $dm['p14'] + $dm['p15'] + $dm['p16'] + $dm['p17'] + $dm['p18']) / 36 * 100;
+
+                            echo number_format($absen, 0);
+
+                            echo form_hidden($dm['id_krs'] . 'absen', number_format($absen, 0))
+                            ?>
+                        </td>
+                        <td><input type="text" class="form-control" name="<?= $dm['id_krs'] ?>nilai_tugas" value="<?= $dm['nilai_tugas'] ?>"></td>
+                        <td><input type="text" class="form-control" name="<?= $dm['id_krs'] ?>nilai_uts" value="<?= $dm['nilai_uts'] ?>"></td>
+                        <td><input type="text" class="form-control" name="<?= $dm['id_krs'] ?>nilai_uas" value="<?= $dm['nilai_uas'] ?>"></td>
+                        <td class="text-center"><?= ($dm['nilai_tugas'] == 0) ? '-' : $dm['nilai_akhir'] ?></td>
+                        <td class="text-center"><?= ($dm['nilai_tugas'] == 0) ? '-' : $dm['nilai_huruf'] ?></td>
+                        <td class="text-center"><?= ($dm['nilai_tugas'] == 0) ? '-' : $dm['bobot'] ?></td>
                     </tr>
 
                 <?php $i++;
                 } ?>
             </tbody>
         </table>
+
+        <button type="submit" class="btn btn-sm btn-success pull-right">Simpan</button>
+        <?= form_close() ?>
     </div>
 </div>

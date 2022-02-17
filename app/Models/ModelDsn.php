@@ -55,4 +55,9 @@ class ModelDsn extends Model
     {
         $this->db->table('tbl_krs')->where('id_krs', $data['id_krs'])->update($data);
     }
+
+    public function simpanNilai($data)
+    {
+        $this->db->table('tbl_krs')->where('id_krs', $data['id_krs'])->update($data);
+    }
 }
